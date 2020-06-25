@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ITDevelopmentModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AttedenceSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="Guarantee" Type="nvarchar(max)" />
+          <Property Name="IdDepartment" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClientSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="MiddleName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="CompanyName" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CustomSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdClient" Type="int" Nullable="false" />
+          <Property Name="IdDepartament" Type="int" Nullable="false" />
+          <Property Name="IdAttedence" Type="int" Nullable="false" />
+          <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DeadLine" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Departament">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="Manager" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IdPersonal" Type="int" />
+        </EntityType>
+        <EntityType Name="FinanceSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gain" Type="int" Nullable="false" />
+          <Property Name="Costs" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Profit" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonalSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Position" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IdDepartament" Type="int" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SeminarsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address_City" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address_Street" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address_House" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AttedenceSet_AttedenceSet">
+          <End Role="Departament" Type="Self.Departament" Multiplicity="1" />
+          <End Role="AttedenceSet" Type="Self.AttedenceSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AttedenceSet">
+              <PropertyRef Name="IdDepartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomSet_AttedenceSet">
+          <End Role="AttedenceSet" Type="Self.AttedenceSet" Multiplicity="1" />
+          <End Role="CustomSet" Type="Self.CustomSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AttedenceSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomSet">
+              <PropertyRef Name="IdAttedence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomSet_ClientSet">
+          <End Role="ClientSet" Type="Self.ClientSet" Multiplicity="1" />
+          <End Role="CustomSet" Type="Self.CustomSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomSet">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomSet_Departament">
+          <End Role="Departament" Type="Self.Departament" Multiplicity="1" />
+          <End Role="CustomSet" Type="Self.CustomSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomSet">
+              <PropertyRef Name="IdDepartament" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Departament_PersonalSet">
+          <End Role="PersonalSet" Type="Self.PersonalSet" Multiplicity="0..1" />
+          <End Role="Departament" Type="Self.Departament" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Departament">
+              <PropertyRef Name="IdPersonal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonalSet_PersonalSet">
+          <End Role="Departament" Type="Self.Departament" Multiplicity="0..1" />
+          <End Role="PersonalSet" Type="Self.PersonalSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonalSet">
+              <PropertyRef Name="IdDepartament" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ITDevelopmentModelContainer">
+          <EntitySet Name="AttedenceSet" EntityType="Self.AttedenceSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientSet" EntityType="Self.ClientSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomSet" EntityType="Self.CustomSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departament" EntityType="Self.Departament" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FinanceSet" EntityType="Self.FinanceSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonalSet" EntityType="Self.PersonalSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeminarsSet" EntityType="Self.SeminarsSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AttedenceSet_AttedenceSet" Association="Self.FK_AttedenceSet_AttedenceSet">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="AttedenceSet" EntitySet="AttedenceSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomSet_AttedenceSet" Association="Self.FK_CustomSet_AttedenceSet">
+            <End Role="AttedenceSet" EntitySet="AttedenceSet" />
+            <End Role="CustomSet" EntitySet="CustomSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomSet_ClientSet" Association="Self.FK_CustomSet_ClientSet">
+            <End Role="ClientSet" EntitySet="ClientSet" />
+            <End Role="CustomSet" EntitySet="CustomSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomSet_Departament" Association="Self.FK_CustomSet_Departament">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="CustomSet" EntitySet="CustomSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Departament_PersonalSet" Association="Self.FK_Departament_PersonalSet">
+            <End Role="PersonalSet" EntitySet="PersonalSet" />
+            <End Role="Departament" EntitySet="Departament" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonalSet_PersonalSet" Association="Self.FK_PersonalSet_PersonalSet">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="PersonalSet" EntitySet="PersonalSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ITDevelopmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AttedenceSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="Guarantee" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdDepartment" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Departament" Relationship="Self.FK_AttedenceSet_AttedenceSet" FromRole="AttedenceSet" ToRole="Departament" />
+          <NavigationProperty Name="CustomSet" Relationship="Self.FK_CustomSet_AttedenceSet" FromRole="AttedenceSet" ToRole="CustomSet" />
+        </EntityType>
+        <EntityType Name="ClientSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CustomSet" Relationship="Self.FK_CustomSet_ClientSet" FromRole="ClientSet" ToRole="CustomSet" />
+        </EntityType>
+        <EntityType Name="CustomSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdClient" Type="Int32" Nullable="false" />
+          <Property Name="IdDepartament" Type="Int32" Nullable="false" />
+          <Property Name="IdAttedence" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DeadLine" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="AttedenceSet" Relationship="Self.FK_CustomSet_AttedenceSet" FromRole="CustomSet" ToRole="AttedenceSet" />
+          <NavigationProperty Name="ClientSet" Relationship="Self.FK_CustomSet_ClientSet" FromRole="CustomSet" ToRole="ClientSet" />
+          <NavigationProperty Name="Departament" Relationship="Self.FK_CustomSet_Departament" FromRole="CustomSet" ToRole="Departament" />
+        </EntityType>
+        <EntityType Name="Departament">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="Manager" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdPersonal" Type="Int32" />
+          <NavigationProperty Name="AttedenceSet" Relationship="Self.FK_AttedenceSet_AttedenceSet" FromRole="Departament" ToRole="AttedenceSet" />
+          <NavigationProperty Name="CustomSet" Relationship="Self.FK_CustomSet_Departament" FromRole="Departament" ToRole="CustomSet" />
+          <NavigationProperty Name="PersonalSet" Relationship="Self.FK_Departament_PersonalSet" FromRole="Departament" ToRole="PersonalSet" />
+          <NavigationProperty Name="PersonalSet1" Relationship="Self.FK_PersonalSet_PersonalSet" FromRole="Departament" ToRole="PersonalSet" />
+        </EntityType>
+        <EntityType Name="FinanceSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gain" Type="Int32" Nullable="false" />
+          <Property Name="Costs" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Profit" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonalSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdDepartament" Type="Int32" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Departament" Relationship="Self.FK_Departament_PersonalSet" FromRole="PersonalSet" ToRole="Departament" />
+          <NavigationProperty Name="Departament1" Relationship="Self.FK_PersonalSet_PersonalSet" FromRole="PersonalSet" ToRole="Departament" />
+        </EntityType>
+        <EntityType Name="SeminarsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address_City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address_Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address_House" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AttedenceSet_AttedenceSet">
+          <End Role="Departament" Type="Self.Departament" Multiplicity="1" />
+          <End Role="AttedenceSet" Type="Self.AttedenceSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AttedenceSet">
+              <PropertyRef Name="IdDepartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomSet_AttedenceSet">
+          <End Role="AttedenceSet" Type="Self.AttedenceSet" Multiplicity="1" />
+          <End Role="CustomSet" Type="Self.CustomSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AttedenceSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomSet">
+              <PropertyRef Name="IdAttedence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomSet_ClientSet">
+          <End Role="ClientSet" Type="Self.ClientSet" Multiplicity="1" />
+          <End Role="CustomSet" Type="Self.CustomSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomSet">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomSet_Departament">
+          <End Role="Departament" Type="Self.Departament" Multiplicity="1" />
+          <End Role="CustomSet" Type="Self.CustomSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomSet">
+              <PropertyRef Name="IdDepartament" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Departament_PersonalSet">
+          <End Role="PersonalSet" Type="Self.PersonalSet" Multiplicity="0..1" />
+          <End Role="Departament" Type="Self.Departament" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Departament">
+              <PropertyRef Name="IdPersonal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonalSet_PersonalSet">
+          <End Role="Departament" Type="Self.Departament" Multiplicity="0..1" />
+          <End Role="PersonalSet" Type="Self.PersonalSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonalSet">
+              <PropertyRef Name="IdDepartament" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ITDevelopmentEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AttedenceSet" EntityType="Self.AttedenceSet" />
+          <EntitySet Name="ClientSet" EntityType="Self.ClientSet" />
+          <EntitySet Name="CustomSet" EntityType="Self.CustomSet" />
+          <EntitySet Name="Departament" EntityType="Self.Departament" />
+          <EntitySet Name="FinanceSet" EntityType="Self.FinanceSet" />
+          <EntitySet Name="PersonalSet" EntityType="Self.PersonalSet" />
+          <EntitySet Name="SeminarsSet" EntityType="Self.SeminarsSet" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_AttedenceSet_AttedenceSet" Association="Self.FK_AttedenceSet_AttedenceSet">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="AttedenceSet" EntitySet="AttedenceSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomSet_AttedenceSet" Association="Self.FK_CustomSet_AttedenceSet">
+            <End Role="AttedenceSet" EntitySet="AttedenceSet" />
+            <End Role="CustomSet" EntitySet="CustomSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomSet_ClientSet" Association="Self.FK_CustomSet_ClientSet">
+            <End Role="ClientSet" EntitySet="ClientSet" />
+            <End Role="CustomSet" EntitySet="CustomSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomSet_Departament" Association="Self.FK_CustomSet_Departament">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="CustomSet" EntitySet="CustomSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Departament_PersonalSet" Association="Self.FK_Departament_PersonalSet">
+            <End Role="PersonalSet" EntitySet="PersonalSet" />
+            <End Role="Departament" EntitySet="Departament" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonalSet_PersonalSet" Association="Self.FK_PersonalSet_PersonalSet">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="PersonalSet" EntitySet="PersonalSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ITDevelopmentModelContainer" CdmEntityContainer="ITDevelopmentEntities1">
+          <EntitySetMapping Name="AttedenceSet">
+            <EntityTypeMapping TypeName="ITDevelopmentModel.AttedenceSet">
+              <MappingFragment StoreEntitySet="AttedenceSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Guarantee" ColumnName="Guarantee" />
+                <ScalarProperty Name="IdDepartment" ColumnName="IdDepartment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientSet">
+            <EntityTypeMapping TypeName="ITDevelopmentModel.ClientSet">
+              <MappingFragment StoreEntitySet="ClientSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomSet">
+            <EntityTypeMapping TypeName="ITDevelopmentModel.CustomSet">
+              <MappingFragment StoreEntitySet="CustomSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+                <ScalarProperty Name="IdDepartament" ColumnName="IdDepartament" />
+                <ScalarProperty Name="IdAttedence" ColumnName="IdAttedence" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DeadLine" ColumnName="DeadLine" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departament">
+            <EntityTypeMapping TypeName="ITDevelopmentModel.Departament">
+              <MappingFragment StoreEntitySet="Departament">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+                <ScalarProperty Name="IdPersonal" ColumnName="IdPersonal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinanceSet">
+            <EntityTypeMapping TypeName="ITDevelopmentModel.FinanceSet">
+              <MappingFragment StoreEntitySet="FinanceSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Gain" ColumnName="Gain" />
+                <ScalarProperty Name="Costs" ColumnName="Costs" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Profit" ColumnName="Profit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonalSet">
+            <EntityTypeMapping TypeName="ITDevelopmentModel.PersonalSet">
+              <MappingFragment StoreEntitySet="PersonalSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="IdDepartament" ColumnName="IdDepartament" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeminarsSet">
+            <EntityTypeMapping TypeName="ITDevelopmentModel.SeminarsSet">
+              <MappingFragment StoreEntitySet="SeminarsSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address_City" ColumnName="Address_City" />
+                <ScalarProperty Name="Address_Street" ColumnName="Address_Street" />
+                <ScalarProperty Name="Address_House" ColumnName="Address_House" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ITDevelopmentModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
