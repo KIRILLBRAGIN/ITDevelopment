@@ -64,7 +64,7 @@
             // pictureBoxLogo
             // 
             this.pictureBoxLogo.Image = global::ITDevelopment_Project.Properties.Resources._2_вариант;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(677, 309);
+            this.pictureBoxLogo.Location = new System.Drawing.Point(670, 309);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
             this.pictureBoxLogo.Size = new System.Drawing.Size(170, 40);
             this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -87,7 +87,7 @@
             this.listViewSeminar.Location = new System.Drawing.Point(231, 45);
             this.listViewSeminar.Margin = new System.Windows.Forms.Padding(14, 3, 3, 3);
             this.listViewSeminar.Name = "listViewSeminar";
-            this.listViewSeminar.Size = new System.Drawing.Size(616, 196);
+            this.listViewSeminar.Size = new System.Drawing.Size(609, 196);
             this.listViewSeminar.TabIndex = 51;
             this.listViewSeminar.UseCompatibleStateImageBehavior = false;
             this.listViewSeminar.View = System.Windows.Forms.View.Details;
@@ -267,7 +267,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(859, 361);
+            this.ClientSize = new System.Drawing.Size(852, 361);
             this.Controls.Add(this.dateTimePickerSeminar);
             this.Controls.Add(this.comboBoxTypeSeminar);
             this.Controls.Add(this.labelDate);
